@@ -2,6 +2,11 @@ const path = require('path');
 const GroupHelper = require('../utils/GroupHelper');
 
 class OutputGroup extends GroupHelper {
+	public opts: any;
+	public strategy: any;
+	public args: any;
+	public output: any;
+
     constructor(options) {
         super(options);
         this.opts = {

@@ -16,6 +16,23 @@ const defaultCommands = {
 };
 
 class WebpackCLI extends GroupHelper {
+	public groupMap: any;
+	public groups: any;
+	public processingMessageBuffer: any;
+	public compilation: any;
+	public defaultEntry: any;
+	public possibleFileNames: any;
+	public compilerConfiguration: any;
+	public outputConfiguration: any;
+	public zeroConfigGroup: any;
+	public basicGroup: any;
+	public advancedGroup: any;
+	public configGroup: any;
+	public statsGroup: any;
+	public helpGroup: any;
+	public outputGroup: any;
+	public _all: any;
+
     constructor() {
         super();
         this.groupMap = new Map();
@@ -149,7 +166,7 @@ class WebpackCLI extends GroupHelper {
      * @private
      * @returns {void}
      */
-    _mergeOptionsToConfiguration(options, strategy) {
+    _mergeOptionsToConfiguration(options, strategy?) {
         /**
          * options is an array (multiple configuration) so we create a new
          * configuration where each element is individually merged

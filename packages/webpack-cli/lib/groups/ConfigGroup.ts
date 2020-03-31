@@ -46,6 +46,13 @@ const getConfigInfoFromFileName = filename => {
 };
 
 class ConfigGroup extends GroupHelper {
+	public args: any;
+	public opts: any;
+	public resolveFilePath: any;
+	public config: any;
+	public mode: any;
+	public merge: any;
+
     constructor(options) {
         super(options);
     }

@@ -2,6 +2,13 @@ const GroupHelper = require('../utils/GroupHelper');
 const logger = require('../utils/logger');
 
 class AdvancedGroup extends GroupHelper {
+	public loadPlugin: any;
+	public opts: any;
+	public args: any;
+	public HotModuleReplacementPlugin: any;
+	public PrefetchPlugin: any;
+	public ProvidePlugin: any;
+
     constructor(options) {
         super(options);
     }

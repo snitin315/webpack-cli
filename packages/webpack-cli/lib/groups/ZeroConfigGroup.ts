@@ -8,6 +8,9 @@ const NONE = 'none';
  * ZeroConfigGroup creates a zero configuration based on the environment
  */
 class ZeroConfigGroup extends GroupHelper {
+	public args: any;
+	public opts: any;
+
     constructor(options) {
         super(options);
     }

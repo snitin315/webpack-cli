@@ -4,6 +4,14 @@ const { cyanBright, greenBright } = require('chalk');
 const { CompilerOutput } = require('./CompilerOutput');
 
 class Compiler {
+	public output: any;
+	public compilerOptions: any;
+	public compiler: any;
+	public ProgressPlugin: any;
+	public outputOptions: any;
+	public processingMessageBuffer: any;
+	public options: any;
+
     constructor() {
         this.output = new CompilerOutput();
         this.compilerOptions = {};

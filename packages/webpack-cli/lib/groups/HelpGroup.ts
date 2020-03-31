@@ -2,6 +2,9 @@ const chalk = require('chalk');
 const commandLineUsage = require('command-line-usage');
 
 class HelpGroup {
+	public bold: any;
+	public underline: any;
+
     outputHelp(isCommand = true, subject) {
         if (subject) {
             const info = isCommand ? require('../utils/cli-flags').commands : require('../utils/cli-flags').core;

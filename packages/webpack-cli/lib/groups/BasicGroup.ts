@@ -2,6 +2,13 @@ const GroupHelper = require('../utils/GroupHelper');
 const { core, groups } = require('../utils/cli-flags');
 
 class BasicGroup extends GroupHelper {
+	public WEBPACK_OPTION_FLAGS: any;
+	public opts: any;
+	public resolveFilePath: any;
+	public args: any;
+	public outputOptions: any;
+	public options: any;
+
     constructor(options) {
         super(options);
         this.WEBPACK_OPTION_FLAGS = core

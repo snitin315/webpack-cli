@@ -4,6 +4,9 @@ const logger = require('../utils/logger');
  * StatsGroup gathers information about the stats options
  */
 class StatsGroup extends GroupHelper {
+	public args: any;
+	public opts: any;
+
     static validOptions() {
         return ['none', 'errors-only', 'minimal', 'normal', 'detailed', 'verbose', 'errors-warnings'];
     }

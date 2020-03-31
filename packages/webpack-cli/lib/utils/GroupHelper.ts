@@ -2,6 +2,10 @@ const { resolve, join } = require('path');
 const { existsSync } = require('fs');
 
 class GroupHelper {
+	public args: any;
+	public opts: any;
+	public strategy: any;
+
     constructor(options) {
         this.args = this.arrayToObject(options);
         this.opts = {

@@ -19,6 +19,7 @@ class WebpackCLI extends GroupHelper {
         super();
         this.groupMap = new Map();
         this.groups = [];
+        this.args = {};
         this.processingMessageBuffer = [];
         this.compilation = new Compiler();
         this.defaultEntry = 'index';
@@ -126,12 +127,13 @@ class WebpackCLI extends GroupHelper {
          * options is an array (multiple configuration) so we create a new
          * configuration where each element is individually merged
          */
+        // console.log({ options, strategy });
         if (Array.isArray(options)) {
             this.compilerConfiguration = options.map((configuration) => {
                 if (strategy) {
                     return webpackMerge.strategy(strategy)(this.compilerConfiguration, configuration);
                 }
-                return webpackMerge(this.compilerConfiguration, configuration);
+                return webpackMerge(configuration, this.compilerConfiguration);
             });
         } else {
             /**
@@ -214,6 +216,30 @@ class WebpackCLI extends GroupHelper {
     }
 
     /**
+     * Responsible for handling flags coming from webpack/webpack
+     * @private\
+     * @returns {void}
+     */
+    _handleCoreFlags() {
+        if (this.groupMap.has('core')) {
+            const coreFlags = this.groupMap.get('core');
+
+            // convert all the flags from map to single object
+            const coreConfig = coreFlags.reduce((allFlag, curFlag) => (allFlag = { ...allFlag, ...curFlag }), {});
+
+            // for some reason these flags are always appended now, remove this later
+            delete coreConfig['module-no-parse'];
+            delete coreConfig['module-no-parse-reset'];
+            delete coreConfig['optimization-no-emit-on-errors'];
+
+            const coreCliHelper = require('webpack').cli;
+            const coreCliArgs = coreCliHelper.getArguments();
+            // Merge the core flag config with the compilerConfiguration
+            coreCliHelper.processArguments(coreCliArgs, this.compilerConfiguration, coreConfig);
+        }
+    }
+
+    /**
      * It runs in a fancy order all the expected groups.
      * Zero config and configuration goes first.
      *
@@ -226,6 +252,7 @@ class WebpackCLI extends GroupHelper {
             .then(() => this._handleDefaultEntry())
             .then(() => this._handleGroupHelper(this.configGroup))
             .then(() => this._handleGroupHelper(this.outputGroup))
+            .then(() => this._handleCoreFlags())
             .then(() => this._handleGroupHelper(this.basicGroup))
             .then(() => this._handleGroupHelper(this.advancedGroup))
             .then(() => this._handleGroupHelper(this.statsGroup))

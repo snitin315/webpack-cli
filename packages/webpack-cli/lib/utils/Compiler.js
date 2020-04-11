@@ -117,6 +117,7 @@ class Compiler {
     }
 
     async createCompiler(options) {
+        console.log({ options });
         try {
             this.compiler = await webpack(options);
             this.compilerOptions = options;

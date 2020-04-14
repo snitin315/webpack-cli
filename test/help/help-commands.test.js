@@ -6,7 +6,7 @@ const helpHeader = 'The build tool for modern web applications';
 describe('commands help', () => {
     it('shows default help with invalid command', () => {
         const { stdout, stderr } = run(__dirname, ['--help', 'myCommand'], false);
-        expect(stdout).toContain(helpHeader);
+        expect(stdout).toContain(`Error: Invalid Option 'myCommand'`);
         expect(stderr).toHaveLength(0);
     });
     it('shows command help with valid command', () => {

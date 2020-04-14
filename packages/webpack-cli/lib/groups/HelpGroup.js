@@ -42,7 +42,7 @@ class HelpGroup {
             }
         } else if (invalidArgs.length > 0) {
             console.error(chalk.red(`\nError: Invalid Option '${invalidArgs[0]}'.`));
-            console.info(chalk.cyan('Run webpack --help to see available commands and arguments.\n'));
+            //console.info(chalk.cyan('Run webpack --help to see available commands and arguments.\n'));
             process.exit(-2);
         } else {
             process.stdout.write(this.run().outputOptions.help);
@@ -73,7 +73,7 @@ class HelpGroup {
 
         if (invalidArgs.length > 0) {
             console.error(chalk.red(`\nError: Invalid Option '${invalidArgs[0]}'.`));
-            console.info(chalk.cyan('Run webpack --help to see available commands and arguments.\n'));
+            //console.info(chalk.cyan('Run webpack --help to see available commands and arguments.\n'));
             process.exit(-2);
         }
 

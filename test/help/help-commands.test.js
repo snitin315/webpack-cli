@@ -4,11 +4,16 @@ const { run } = require('../utils/test-utils');
 const helpHeader = 'The build tool for modern web applications';
 
 describe('commands help', () => {
-    it('shows default help with invalid command', () => {
-        const { stdout, stderr } = run(__dirname, ['--help', 'myCommand'], false);
-        expect(stdout).toContain(`Error: Invalid Option 'myCommand'`);
-        expect(stderr).toHaveLength(0);
+    it('throws error for invalid command with --help', () => {
+        const { stderr } = run(__dirname, ['--help', 'myCommand'], false);
+        expect(stderr).toContain(`Error: Invalid Option 'myCommand'`);
     });
+
+    it('throws error for invalid command with help', () => {
+        const { stderr } = run(__dirname, ['help', 'myCommand'], false);
+        expect(stderr).toContain(`Error: Invalid Option 'myCommand'`);
+    });
+
     it('shows command help with valid command', () => {
         const { stdout, stderr } = run(__dirname, ['--help', 'init'], false);
         expect(stdout).not.toContain(helpHeader);

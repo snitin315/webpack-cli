@@ -21,4 +21,24 @@ describe('help flag with multiple arguments', () => {
         expect(stdout).toContain(createDescription);
         expect(stderr).toHaveLength(0);
     });
+
+    it('should throw error if multiple flags are used with help', () => {
+        const { stderr } = run(__dirname, ['help', '--mode', '--hot']);
+        expect(stderr).toContain('You provided multiple arguments with help. Please use one argument at a time.');
+    });
+
+    it('should throw error if multiple commands are used with help', () => {
+        const { stderr } = run(__dirname, ['help', 'init', 'info']);
+        expect(stderr).toContain('You provided multiple arguments with help. Please use one argument at a time.');
+    });
+
+    it('should throw error if multiple arguments are used with help', () => {
+        const { stderr } = run(__dirname, ['help', '--mode', 'info']);
+        expect(stderr).toContain('You provided multiple arguments with help. Please use one argument at a time.');
+    });
+
+    it('should throw error if invalid argument is present with help', () => {
+        const { stderr } = run(__dirname, ['help', '--abc']);
+        expect(stderr).toContain('Error: Invalid Option --abc');
+    });
 });

@@ -4,12 +4,6 @@ const { run } = require('../utils/test-utils');
 const pkgJSON = require('../../packages/webpack-cli/package.json');
 
 describe('version flag with multiple arguments', () => {
-    it('outputs version with mixed syntax', () => {
-        const { stdout, stderr } = run(__dirname, ['--version', '--target', 'browser']);
-        expect(stdout).toContain(pkgJSON.version);
-        expect(stderr).toHaveLength(0);
-    });
-
     it('does not output version with help command', () => {
         const { stdout, stderr } = run(__dirname, ['version', 'help']);
         expect(stdout).not.toContain(pkgJSON.version);
@@ -28,9 +22,17 @@ describe('version flag with multiple arguments', () => {
         expect(stderr).toHaveLength(0);
     });
 
-    it('outputs version with multiple dashed args and has precedence', () => {
-        const { stdout, stderr } = run(__dirname, ['--target', 'browser', '--version']);
-        expect(stdout).toContain(pkgJSON.version);
-        expect(stderr).toHaveLength(0);
+    it('throws error if any invalid argument is  with version command', () => {
+        const { stdout, stderr } = run(__dirname, ['version', 'init', '--abc']);
+        expect(stdout).not.toContain(pkgJSON.version);
+        expect(stderr).toContain(`Error: Invalid Option '--abc'.`);
+        expect(stderr).toContain('Run webpack --help to see available commands and arguments.');
+    });
+
+    it('throws error if any invalid argument is  with --version flag', () => {
+        const { stdout, stderr } = run(__dirname, ['version', 'init', '--abc']);
+        expect(stdout).not.toContain(pkgJSON.version);
+        expect(stderr).toContain(`Error: Invalid Option '--abc'.`);
+        expect(stderr).toContain('Run webpack --help to see available commands and arguments.');
     });
 });

@@ -2,9 +2,15 @@ const chalk = require('chalk');
 const { core, commands } = require('../utils/cli-flags');
 const commandLineUsage = require('command-line-usage');
 
+const [, , ...rawArgs] = process.argv;
+const commandsUsed = rawArgs.filter((val) => commands.find(({ name }) => name === val));
+const flagsUsed = rawArgs.filter((val) => core.find(({ name }) => name === val.slice(2)));
+const argsUsed = [...commandsUsed, ...flagsUsed];
+const invalidArgs = rawArgs.filter((e) => !argsUsed.includes(e) && !e.includes('--color') && e !== 'version' && e !== 'help' && e !== '-v');
+
 class HelpGroup {
     outputHelp(isCommand = true, subject) {
-        if (subject) {
+        if (subject && invalidArgs.length === 0) {
             const info = isCommand ? commands : core;
             // Contains object with details about given subject
             const options = info.find((commandOrFlag) => {
@@ -34,6 +40,10 @@ class HelpGroup {
                 });
                 process.stdout.write(flags);
             }
+        } else if (invalidArgs.length > 0) {
+            console.error(chalk.red(`\nError: Invalid Option '${invalidArgs[0]}'.`));
+            console.info(chalk.cyan('Run webpack --help to see available commands and arguments.\n'));
+            process.exit(-2);
         } else {
             process.stdout.write(this.run().outputOptions.help);
         }
@@ -41,13 +51,9 @@ class HelpGroup {
     }
 
     outputVersion(externalPkg) {
-        const commandsUsed = () => {
-            return process.argv.filter((val) => commands.find(({ name }) => name === val));
-        };
-
-        if (externalPkg && commandsUsed().length === 1) {
+        if (externalPkg && commandsUsed.length === 1) {
             try {
-                if (commandsUsed().includes(externalPkg.name)) {
+                if (commandsUsed.includes(externalPkg.name)) {
                     const { name, version } = require(`@webpack-cli/${externalPkg.name}/package.json`);
                     process.stdout.write(`\n${name} ${version}`);
                 } else {
@@ -60,9 +66,15 @@ class HelpGroup {
             }
         }
 
-        if (commandsUsed().length > 1) {
+        if (commandsUsed.length > 1) {
             console.error(chalk.red('\nYou provided multiple commands. Please use only one command at a time.\n'));
             process.exit();
+        }
+
+        if (invalidArgs.length > 0) {
+            console.error(chalk.red(`\nError: Invalid Option '${invalidArgs[0]}'.`));
+            console.info(chalk.cyan('Run webpack --help to see available commands and arguments.\n'));
+            process.exit(-2);
         }
 
         const pkgJSON = require('../../package.json');

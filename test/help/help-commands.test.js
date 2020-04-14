@@ -4,16 +4,16 @@ const { run } = require('../utils/test-utils');
 const helpHeader = 'The build tool for modern web applications';
 
 describe('commands help', () => {
-    it('shows default help with invalid command', () => {
-        const { stdout, stderr } = run(__dirname, ['--help', 'myCommand'], false);
-        expect(stdout).toContain(helpHeader);
-        expect(stderr).toHaveLength(0);
+    it('throws error for invalid command with --help flag', () => {
+        const { stderr, stdout } = run(__dirname, ['--help', 'myCommand'], false);
+        expect(stderr).toContain(`Error: Invalid Option 'myCommand'`);
+        expect(stdout).toContain('Run webpack --help to see available commands and arguments');
     });
-    it('shows command help with valid command', () => {
-        const { stdout, stderr } = run(__dirname, ['--help', 'init'], false);
-        expect(stdout).not.toContain(helpHeader);
-        expect(stdout).toContain('webpack init | init <scaffold>');
-        expect(stderr).toHaveLength(0);
+
+    it('throws error for invalid command with help command', () => {
+        const { stderr, stdout } = run(__dirname, ['help', 'myCommand'], false);
+        expect(stderr).toContain(`Error: Invalid Option 'myCommand'`);
+        expect(stdout).toContain('Run webpack --help to see available commands and arguments');
     });
 
     it('gives precedence to earlier command in case of multiple commands', () => {

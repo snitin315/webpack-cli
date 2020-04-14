@@ -6,7 +6,9 @@ const [, , ...rawArgs] = process.argv;
 const commandsUsed = rawArgs.filter((val) => commands.find(({ name }) => name === val));
 const flagsUsed = rawArgs.filter((val) => core.find(({ name }) => name === val.slice(2)));
 const argsUsed = [...commandsUsed, ...flagsUsed];
-const invalidArgs = rawArgs.filter((e) => !commandsUsed.includes(e) && !flagsUsed.includes(e) && e !== 'version' && e !== 'help');
+const invalidArgs = rawArgs.filter(
+    (e) => !commandsUsed.includes(e) && !flagsUsed.includes(e) && e !== 'version' && e !== 'help' && e !== '-v',
+);
 
 class HelpGroup {
     outputHelp(isCommand = true, subject) {

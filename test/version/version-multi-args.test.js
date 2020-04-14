@@ -35,4 +35,11 @@ describe('version flag with multiple arguments', () => {
         expect(stderr).toContain(`Error: Invalid Option '--abc'.`);
         expect(stderr).toContain('Run webpack --help to see available commands and arguments.');
     });
+
+    it('throws error if any invalid argument is  with -v alias', () => {
+        const { stdout, stderr } = run(__dirname, ['-v', '--abc']);
+        expect(stdout).not.toContain(pkgJSON.version);
+        expect(stderr).toContain(`Error: Invalid Option '--abc'.`);
+        expect(stderr).toContain('Run webpack --help to see available commands and arguments.');
+    });
 });

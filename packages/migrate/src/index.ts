@@ -1,4 +1,4 @@
-import chalk = require('chalk');
+import chalk from 'chalk';
 import { Change, diffLines } from 'diff';
 import fs from 'fs';
 import inquirer from 'inquirer';
@@ -130,14 +130,14 @@ function runMigration(currentConfigPath: string, outputConfigPath: string): Prom
                 .then(
                     async (answer: { confirmValidation: boolean }): Promise<void> => {
                         if (!answer) {
-                            //return;
+                            return;
                         }
 
                         runPrettier(outputConfigPath, result);
 
                         if (answer.confirmValidation) {
                             const outputConfig = (await import(outputConfigPath)).default;
-                            const webpackOptionsValidationErrors: string[] = validate(outputConfig);
+                            const webpackOptionsValidationErrors = validate(outputConfig);
 
                             if (webpackOptionsValidationErrors.length) {
                                 console.error(chalk.red("\n✖ Your configuration validation wasn't successful \n"));

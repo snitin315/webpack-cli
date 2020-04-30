@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import chalk = require('chalk');
 import { Change, diffLines } from 'diff';
 import fs from 'fs';
 import inquirer from 'inquirer';

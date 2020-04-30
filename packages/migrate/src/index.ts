@@ -130,7 +130,7 @@ function runMigration(currentConfigPath: string, outputConfigPath: string): Prom
                 .then(
                     async (answer: { confirmValidation: boolean }): Promise<void> => {
                         if (!answer) {
-                            return;
+                            //return;
                         }
 
                         runPrettier(outputConfigPath, result);

@@ -16,7 +16,7 @@ import jscodeshift from 'jscodeshift';
 declare let process: {
     cwd: Function;
     webpackModule: {
-        validate: Function;
+        validate: typeof Function;
         WebpackOptionsValidationError: {
             new: (
                 errors: string[],
@@ -137,7 +137,7 @@ function runMigration(currentConfigPath: string, outputConfigPath: string): Prom
 
                         if (answer.confirmValidation) {
                             const outputConfig = (await import(outputConfigPath)).default;
-                            const webpackOptionsValidationErrors = validate(outputConfig);
+                            const webpackOptionsValidationErrors: string[] = validate(outputConfig);
 
                             if (webpackOptionsValidationErrors.length) {
                                 console.error(chalk.red("\n✖ Your configuration validation wasn't successful \n"));

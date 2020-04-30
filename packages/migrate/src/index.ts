@@ -16,7 +16,7 @@ import jscodeshift from 'jscodeshift';
 declare let process: {
     cwd: Function;
     webpackModule: {
-        validate: typeof Function;
+        validate: typeof validate;
         WebpackOptionsValidationError: {
             new: (
                 errors: string[],

@@ -81,7 +81,7 @@ module.exports = {
         },
         {
             name: 'config',
-            usage: '--config <path to webpack configuration file> e.g. ./webpack.config.js',
+            usage: '--config <path to webpack configurationfile> e.g. ./webpack.config.js',
             alias: 'c',
             type: String,
             defaultValue: null,

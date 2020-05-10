@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const { core, commands } = require('../utils/cli-flags');
-const commandLineUsage = require('command-line-usage');
+const commandLineUsage = require('../utils/help-usage');
 
 class HelpGroup {
     outputHelp(isCommand = true, subject, invalidArgs) {

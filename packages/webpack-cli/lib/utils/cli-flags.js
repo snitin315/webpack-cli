@@ -260,7 +260,6 @@ module.exports = {
             group: DISPLAY_GROUP,
             description: 'It tells webpack to output all the information',
         },
-<<<<<<< HEAD
         {
             name: 'env',
             usage: '--env',
@@ -268,9 +267,7 @@ module.exports = {
             group: CONFIG_GROUP,
             description: 'Environment passed to the configuration when it is a function',
         },
-=======
         ...flagsFromCore,
->>>>>>> feat: 🎸 import flags from core
         /* 		{
 			name: "analyze",
 			type: Boolean,

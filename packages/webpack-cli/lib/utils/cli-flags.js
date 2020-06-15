@@ -1,12 +1,4 @@
-const flagsFromCore = Object.entries(require('webpack').cli.getArguments()).map(([flag, meta]) => {
-    return {
-        ...meta,
-        name: flag,
-        group: 'core',
-    };
-});
-
-// console.log(flagsFromCore);
+const { version } = require('webpack');
 
 const HELP_GROUP = 'help';
 const CONFIG_GROUP = 'config';
@@ -16,7 +8,15 @@ const ADVANCED_GROUP = 'advanced';
 const DISPLAY_GROUP = 'stats';
 const ZERO_CONFIG_GROUP = 'zero-config';
 
-// console.log(flagsFromCore.filter(fc => core.find(c => c.name === fc.name)));
+const flagsFromCore = version.startsWith(5)
+    ? Object.entries(require('webpack').cli.getArguments()).map(([flag, meta]) => {
+          return {
+              ...meta,
+              name: flag,
+              group: 'core',
+          };
+      })
+    : {};
 
 module.exports = {
     groups: {

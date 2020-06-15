@@ -16,7 +16,7 @@ const flagsFromCore = version.startsWith(5)
               group: 'core',
           };
       })
-    : {};
+    : [];
 
 module.exports = {
     groups: {

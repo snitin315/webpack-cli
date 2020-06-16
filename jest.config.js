@@ -1,5 +1,9 @@
+const { version } = require('webpack');
+
+const ignorePattern = version.startsWith('5') ? ['<rootDir>/node_modules/'] : ['<rootDir>/node_modules/', '<rootDir>/test/core-flags'];
+
 module.exports = {
-    testPathIgnorePatterns: ['<rootDir>/node_modules/'],
+    testPathIgnorePatterns: ignorePattern,
     // transformIgnorePatterns: ['<rootDir>.*(node_modules)(?!.*webpack-cli.*).*$'],
     testEnvironment: 'node',
     collectCoverage: true,

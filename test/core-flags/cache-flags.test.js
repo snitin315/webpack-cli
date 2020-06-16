@@ -1,6 +1,7 @@
 'use strict';
 
 const { run } = require('../utils/test-utils');
+const { resolve } = require('path');
 
 describe('cahche related flags from core', () => {
     it('should be successful with --cache ', () => {
@@ -19,16 +20,18 @@ describe('cahche related flags from core', () => {
 
     it('should set cache.cacheDirectory with --cache-cache-directory', () => {
         const { stderr, stdout } = run(__dirname, ['--cache-type', 'filesystem', '--cache-cache-directory', '/test-cache-path']);
+        const path = resolve('/test-cache-path');
 
         expect(stderr).toBeFalsy();
-        expect(stdout).toContain(`cacheDirectory: '/test-cache-path'`);
+        expect(stdout).toContain(`cacheDirectory: '${path}'`);
     });
 
     it('should set cache.cacheLocation with --cache-cache-locations', () => {
         const { stderr, stdout } = run(__dirname, ['--cache-type', 'filesystem', '--cache-cache-location', '/test-locate-cache']);
+        const path = resolve('/test-locate-cache');
 
         expect(stderr).toBeFalsy();
-        expect(stdout).toContain(`cacheLocation: '/test-locate-cache'`);
+        expect(stdout).toContain(`cacheLocation: '${path}'`);
     });
 
     it('should set cache.hashAlgorithm with --cache-hash-algorithm', () => {

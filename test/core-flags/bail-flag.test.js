@@ -2,7 +2,7 @@
 
 const { run } = require('../utils/test-utils');
 
-describe('cahche related flags from core', () => {
+describe('--bail flag', () => {
     it('should set bail to true', () => {
         const { stderr, stdout } = run(__dirname, ['--bail']);
 

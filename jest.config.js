@@ -1,5 +1,6 @@
 const { version } = require('webpack');
 
+//ignore core-flags test for webpack@4
 const ignorePattern = version.startsWith('5') ? ['<rootDir>/node_modules/'] : ['<rootDir>/node_modules/', '<rootDir>/test/core-flags'];
 
 module.exports = {

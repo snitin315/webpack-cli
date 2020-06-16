@@ -55,7 +55,12 @@ describe('cahche related flags from core', () => {
         const { stderr, stdout } = run(__dirname, ['--cache-type', 'memory', '--cache-managed-paths', '/test-manage-path']);
 
         expect(stderr).toBeFalsy();
-        expect(stdout).toContain(`managedPaths: [ '/test-manage-path' ]`);
+        if (process.platform === 'win32') {
+            // for windows
+            expect(stdout).toContain('test-manage-path');
+        } else {
+            expect(stdout).toContain(`managedPaths: [ '/test-manage-path' ]`);
+        }
     });
 
     it('should reset cache.managedPaths with --cache-managed-paths-reset', () => {

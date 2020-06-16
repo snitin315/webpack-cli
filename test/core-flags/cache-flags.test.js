@@ -23,7 +23,12 @@ describe('cahche related flags from core', () => {
         const path = resolve('/test-cache-path');
 
         expect(stderr).toBeFalsy();
-        expect(stdout).toContain(`cacheDirectory: '${path}'`);
+        if (process.platform === 'win32') {
+            // for windows
+            expect(stdout).toContain('test-cache-path');
+        } else {
+            expect(stdout).toContain(`cacheDirectory: '${path}'`);
+        }
     });
 
     it('should set cache.cacheLocation with --cache-cache-locations', () => {
@@ -31,7 +36,12 @@ describe('cahche related flags from core', () => {
         const path = resolve('/test-locate-cache');
 
         expect(stderr).toBeFalsy();
-        expect(stdout).toContain(`cacheLocation: '${path}'`);
+        if (process.platform === 'win32') {
+            // for windows
+            expect(stdout).toContain('test-locate-cache');
+        } else {
+            expect(stdout).toContain(`cacheLocation: '${path}'`);
+        }
     });
 
     it('should set cache.hashAlgorithm with --cache-hash-algorithm', () => {

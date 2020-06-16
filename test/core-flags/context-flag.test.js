@@ -9,6 +9,11 @@ describe('--context flag', () => {
         const path = resolve('/test-context-path');
 
         expect(stderr).toBeFalsy();
-        expect(stdout).toContain(`context: '${path}'`);
+        if (process.platform === 'win32') {
+            // for windows
+            expect(stdout).toContain('test-context-path');
+        } else {
+            expect(stdout).toContain(`context: '${path}'`);
+        }
     });
 });

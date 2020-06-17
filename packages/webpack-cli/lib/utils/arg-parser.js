@@ -38,7 +38,6 @@ function argParser(options, args, argsOnly = false, name = '', helpFunction = un
     // Register options on the parser
     options.reduce((parserInstance, option) => {
         const flags = option.alias ? `-${option.alias}, --${option.name}` : `--${option.name}`;
-<<<<<<< HEAD
         const flagsWithType = option.type !== Boolean ? flags + ' <value>' : flags;
         if (option.type === Boolean || option.type === String) {
             if (!option.multiple) {
@@ -47,11 +46,6 @@ function argParser(options, args, argsOnly = false, name = '', helpFunction = un
                 const multiArg = (value, previous = []) => previous.concat([value]);
                 parserInstance.option(flagsWithType, option.description, multiArg, option.defaultValue);
             }
-=======
-        const flagsWithType = option.type !== Boolean && option.simpleType !== 'boolean' ? flags + ' <value>' : flags;
-        if (option.type === Boolean || option.type === String || option.simpleType === 'boolean') {
-            parserInstance.option(flagsWithType, option.description, option.defaultValue);
->>>>>>> feat(webpack-cli): import flags from webpack core
         } else {
             // in this case the type is a parsing function
             parserInstance.option(flagsWithType, option.description, option.type, option.defaultValue);

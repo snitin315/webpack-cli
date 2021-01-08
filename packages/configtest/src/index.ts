@@ -27,7 +27,7 @@ class ConfigTestCommand {
                         throw new webpack.WebpackOptionsValidationError(error);
                     }
                 } catch (error) {
-                    const isValidationError = (error) => {
+                    const isValidationError = (error): boolean => {
                         // https://github.com/webpack/webpack/blob/master/lib/index.js#L267
                         // https://github.com/webpack/webpack/blob/v4.44.2/lib/webpack.js#L90
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any

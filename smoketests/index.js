@@ -1,5 +1,9 @@
 /* eslint-disable node/no-unpublished-require */
-const tests = [require('./missing-packages/webpack-dev-server.test.js'), require('./missing-packages/webpack.test.js')];
+const devServerTest = require('./missing-packages/webpack-dev-server.test.js');
+const webpackTest = require('./missing-packages/webpack.test.js');
+const infoTest = require('./missing-packages/info.test.js');
+
+const tests = [devServerTest, infoTest, webpackTest];
 
 (async () => {
     let isAllPassed = true;
